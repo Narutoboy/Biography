@@ -64,7 +64,7 @@ public class DetailAct extends AppCompatActivity {
                     Intent shareintent = new Intent();
                     shareintent.setAction(Intent.ACTION_SEND);
                     shareintent.putExtra(Intent.EXTRA_TEXT,
-                            "Share the data" + mTextMessage.getText().toString());
+                            mTextMessage.getText().toString() + "Short Stories");
                     shareintent.setType("text/plain");
                     startActivity(shareintent);
 
