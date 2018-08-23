@@ -1,32 +1,11 @@
 <resources>
-    <string name="app_name">Biography</string>
-    <!--<string-array name="biolist">
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
-        <item>Apj abdul kalam</item>
+    <string name="app_name">Short Stories</string>
 
-
-    </string-array>-->
     <string name="action_settings">Settings</string>
     <string name="title_activity_detail">DetailAct</string>
     <string name="title_setting">Settring</string>
     <string name="title_listen">Listen</string>
-    <string name="title_share">Share</string>
+    <string name="title_share">Story Share</string>
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -99,8 +78,6 @@
     <string name="pref_title_vibrate">Vibrate</string>
 
 
-
-
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="default_gallery_storage">My Videos</string>
@@ -115,7 +92,7 @@
     <string name="app_version">1.0</string>
     <string name="summary_support">Write in review so that we know your valuable feedback!</string>
     <string name="title_send_feedback">Send Feedback</string>
-    <string name="title_faq">More App's</string>
+    <string name="title_faq">More Apps</string>
     <string name="summary_trymore">try more application </string>
     <string name="url_trymore">https://play.google.com/store/apps/developer?id=DO_BIG</string>
     <string name="privacy_policy">Privacy Policy</string>
@@ -135,4 +112,7 @@
     <string name="key_notifications_new_message_ringtone">key_notifications_new_message_ringtone</string>
     <string name="key_vibrate">key_vibrate</string>
     <string name="key_send_feedback">key_send_feedback</string>
+    <string name="title_activity_list">ListActivity</string>
+    <string name="previous"><![CDATA[<<]]></string>
+    <string name="nextbtn"><![CDATA[>>]]></string>
 </resources>

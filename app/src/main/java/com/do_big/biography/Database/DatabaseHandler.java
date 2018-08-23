@@ -20,9 +20,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     private static final String KEY_TITLE = "title";
     private static final String KEY_STORY = "story";
     private static final String KEY_STORY_CATEGORY = "category";
+
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
+
     @Override
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
@@ -30,6 +32,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 + KEY_STORY + " TEXT" + ")";
         db.execSQL(CREATE_CONTACTS_TABLE);
     }
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_CONTACTS);
@@ -39,23 +42,25 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public String getContact(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_CONTACTS,
-                                new String[] { KEY_ID, KEY_TITLE, KEY_STORY },
-                                KEY_ID + "=?",
-                new String[] { String.valueOf(id) }, null, null, null, null);
+                new String[]{KEY_ID, KEY_TITLE, KEY_STORY},
+                KEY_ID + "=?",
+                new String[]{String.valueOf(id)}, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
-        String str=cursor.getString(1)+cursor.getString(2);
+        String str = cursor.getString(1) + cursor.getString(2);
         return str;
     }
+
     public void addContact(Storys storys) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
-        values.put(KEY_TITLE, storys. getStoryTitle()); // Contact Name
+        values.put(KEY_TITLE, storys.getStoryTitle()); // Contact Name
         values.put(KEY_STORY, storys.getStory()); // Contact Phone
         // Inserting Row
         db.insert(TABLE_CONTACTS, null, values);
         db.close();
     }
+
     // Getting All Contacts
     public Cursor getAllContacts() {
         LinkedList<Storys> contactList = new LinkedList<>();

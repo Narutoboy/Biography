@@ -10,18 +10,23 @@ public class Storys {
 
 
     String storyTitle;
-    public Storys(){}
+
+    public Storys() {
+    }
+
     public Storys(String title, String s) {
         this.storyTitle = title;
-        this.story= s;
+        this.story = s;
 
     }
-    public Storys(int id,String title, String s) {
-        this._id=id;
+
+    public Storys(int id, String title, String s) {
+        this._id = id;
         this.storyTitle = title;
-        this.story= s;
+        this.story = s;
 
     }
+
     public int get_id() {
         return _id;
     }

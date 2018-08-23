@@ -26,55 +26,6 @@ public class Settings extends AppCompatPreferenceActivity {
 
     private static final String TAG = Settings.class.getSimpleName();
     private static String settings;
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // load settings fragment
-        getFragmentManager().beginTransaction().replace(android.R.id.content, new MainPreferenceFragment()).commit();
-    }
-
-    public static class MainPreferenceFragment extends PreferenceFragment {
-        @Override
-        public void onCreate(final Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_main);
-
-            // gallery EditText change listener
-//            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_gallery_name)));
-
-            // notification preference change listener
-//            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_notifications_new_message_ringtone)));
-
-            // feedback preference click listener
-            Preference myPref = findPreference(getString(R.string.key_send_feedback));
-            myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
-                public boolean onPreferenceClick(Preference preference) {
-                    sendFeedback(getActivity());
-                    return true;
-                }
-            });
-        }
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home) {
-            onBackPressed();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
-    private static void bindPreferenceSummaryToValue(Preference preference) {
-        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
-
-        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
-                PreferenceManager
-                        .getDefaultSharedPreferences(preference.getContext())
-                        .getString(preference.getKey(), ""));
-    }
-
     private static Preference.OnPreferenceChangeListener sBindPreferenceSummaryToValueListener = new Preference.OnPreferenceChangeListener() {
         @Override
         public boolean onPreferenceChange(Preference preference, Object newValue) {
@@ -114,20 +65,27 @@ public class Settings extends AppCompatPreferenceActivity {
                     // update the changed gallery name to summary filed
                     preference.setSummary(stringValue);
                 }
-            }
-            else if (preference instanceof CheckBoxPreference) {
+            } else if (preference instanceof CheckBoxPreference) {
                 if (preference.getKey().equals("key_night_mode")) {
                     // update the changed gallery name to summary filed
                     preference.setSummary(stringValue);
-                    Log.d("stringValue",stringValue);
+                    Log.d("stringValue", stringValue);
                 }
-            }
-            else {
+            } else {
                 preference.setSummary(stringValue);
             }
             return true;
         }
     };
+
+    private static void bindPreferenceSummaryToValue(Preference preference) {
+        preference.setOnPreferenceChangeListener(sBindPreferenceSummaryToValueListener);
+
+        sBindPreferenceSummaryToValueListener.onPreferenceChange(preference,
+                PreferenceManager
+                        .getDefaultSharedPreferences(preference.getContext())
+                        .getString(preference.getKey(), ""));
+    }
 
     public static void sendFeedback(Context context) {
         String body = null;
@@ -144,6 +102,46 @@ public class Settings extends AppCompatPreferenceActivity {
         intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback of android app");
         intent.putExtra(Intent.EXTRA_TEXT, body);
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.choose_email_client)));
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        // load settings fragment
+        getFragmentManager().beginTransaction().replace(android.R.id.content, new MainPreferenceFragment()).commit();
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            onBackPressed();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static class MainPreferenceFragment extends PreferenceFragment {
+        @Override
+        public void onCreate(final Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_main);
+
+            // gallery EditText change listener
+//            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_gallery_name)));
+
+            // notification preference change listener
+//            bindPreferenceSummaryToValue(findPreference(getString(R.string.key_notifications_new_message_ringtone)));
+
+            // feedback preference click listener
+            Preference myPref = findPreference(getString(R.string.key_send_feedback));
+            myPref.setOnPreferenceClickListener(new Preference.OnPreferenceClickListener() {
+                public boolean onPreferenceClick(Preference preference) {
+                    sendFeedback(getActivity());
+                    return true;
+                }
+            });
+        }
     }
 
 }
