@@ -3,34 +3,27 @@ package com.do_big.biography.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.do_big.biography.R;
 import com.do_big.biography.adapter.MyAdapter;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import java.util.Arrays;
 import java.util.LinkedList;
 
 public class ListActivity extends AppCompatActivity {
     ListView listview;
-    private AdView mAdView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list2);
-        MobileAds.initialize(this, "ca-app-pub-9084411889674439~8429350092");
-        mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
         listview = findViewById(R.id.listView);
         LinkedList<String> items = new LinkedList<String>(Arrays.asList(
 
@@ -64,10 +57,10 @@ public class ListActivity extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent detailintent = new Intent(ListActivity.this, DetailAct.class);
-                int storyno = ++i;
-                detailintent.putExtra("file", "" + storyno + ".txt");
-                startActivity(detailintent);
+                Intent detailIntent = new Intent(ListActivity.this, DetailAct.class);
+                int storyNumber = ++i;
+                detailIntent.putExtra("file", "" + storyNumber + ".txt");
+                startActivity(detailIntent);
             }
         });
     }
@@ -89,7 +82,7 @@ public class ListActivity extends AppCompatActivity {
             return true;
         }
         if (id == R.id.share) {
-//kuch karna hai
+
             Intent sendIntent = new Intent();
             sendIntent.setAction(Intent.ACTION_SEND);
             sendIntent.putExtra(Intent.EXTRA_TEXT,

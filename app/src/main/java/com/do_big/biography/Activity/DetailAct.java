@@ -1,5 +1,7 @@
 package com.do_big.biography.Activity;
 
+import static android.R.attr.textSize;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -7,9 +9,6 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.speech.tts.TextToSpeech;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
-import android.support.v7.app.AppCompatActivity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,32 +16,33 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.do_big.biography.Database.DatabaseHandler;
 import com.do_big.biography.R;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.InterstitialAd;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-import static android.R.attr.textSize;
-
 public class DetailAct extends AppCompatActivity {
     public static final String PREF_FILE_NAME = "PrefFile";
-    int fileno;
-    InputStream in;
-    FrameLayout frameLayout;
-    DatabaseHandler db;
-    String storyid;
+    private int fileNumber;
+    private InputStream in;
+    private FrameLayout frameLayout;
+    private DatabaseHandler db;
+    private String storyId;
     private TextView mTextMessage;
     private TextToSpeech tts;
-    private InterstitialAd mInterstitialAd;
 
     private int ttsStatus;
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
         @Override
@@ -56,6 +56,7 @@ public class DetailAct extends AppCompatActivity {
                     return true;
                 case R.id.navigation_listen:
                     //mTextMessage.setText(R.string.title_listen);
+
                     tts.speak(mTextMessage.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
                     return true;
                 case R.id.navigation_share:
@@ -79,17 +80,6 @@ public class DetailAct extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
-        MobileAds.initialize(this, "ca-app-pub-9084411889674439~8429350092");
-
-        mInterstitialAd = new InterstitialAd(this);
-        mInterstitialAd.setAdUnitId("ca-app-pub-9084411889674439/5038444588");
-        mInterstitialAd.loadAd(new AdRequest.Builder().build());
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
-        }
         frameLayout = findViewById(R.id.content);
         String key = getIntent().getStringExtra("file");
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
@@ -106,16 +96,16 @@ public class DetailAct extends AppCompatActivity {
         mTextMessage.setMovementMethod(new ScrollingMovementMethod());
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        storyid = key;
+        storyId = key;
         AssetManager assetManager = getAssets();
         try {
-            in = assetManager.open(storyid);
+            in = assetManager.open(storyId);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
         mTextMessage.setText(readTxt(in));
-        fileno = Integer.parseInt(storyid.substring(0, storyid.indexOf(".")));
+        fileNumber = Integer.parseInt(storyId.substring(0, storyId.indexOf(".")));
 
     }
 
@@ -129,18 +119,16 @@ public class DetailAct extends AppCompatActivity {
     protected void onResume() {
         SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
         String textsize = settings.getString("TextSize", "18");
-        Log.d("textSize", "" + textSize);
         mTextMessage.setTextSize(Float.parseFloat(textsize));
         boolean nightmode = settings.getBoolean("nightMode", false);
         if (nightmode) {
             mTextMessage.setTextColor(Color.WHITE);
-            frameLayout.setBackgroundResource(R.drawable.nightback);
+            frameLayout.setBackgroundResource(R.color.grey);
 
             // mTextMessage.append("true");
         } else {
             mTextMessage.setTextColor(Color.BLACK);
-            frameLayout.setBackgroundResource(R.drawable.back);
-            //mTextMessage.append("false");
+            frameLayout.setBackgroundResource(R.drawable.back2);
         }
 
         super.onResume();
@@ -153,19 +141,14 @@ public class DetailAct extends AppCompatActivity {
     }
 
     public void btnclick(View view) {
-        if (mInterstitialAd.isLoaded()) {
-            mInterstitialAd.show();
-        } else {
-            Log.d("TAG", "The interstitial wasn't loaded yet.");
-        }
         int Id = view.getId();
         switch (Id) {
             case R.id.btn_next:
 
-                Log.d("Btn", "next pressed" + fileno);
-                if (fileno < 25) {
-                    ++fileno;
-                    String nextstory = fileno + ".txt";
+                Log.d("Btn", "next pressed" + fileNumber);
+                if (fileNumber < 25) {
+                    ++fileNumber;
+                    String nextstory = fileNumber + ".txt";
                     Log.d("nextstory", nextstory);
                     AssetManager assetManager = getAssets();
                     try {
@@ -180,9 +163,9 @@ public class DetailAct extends AppCompatActivity {
                 }
                 break;
             case R.id.btn_previous:
-                if (fileno > 1) {
-                    --fileno;
-                    String previousstory = fileno + ".txt";
+                if (fileNumber > 1) {
+                    --fileNumber;
+                    String previousstory = fileNumber + ".txt";
                     Log.d("previous story", previousstory);
                     AssetManager assetManager = getAssets();
                     try {
@@ -207,11 +190,15 @@ public class DetailAct extends AppCompatActivity {
 
         int i;
         try {
-            i = inputStream.read();
-            while (i != -1) {
-                byteArrayOutputStream.write(i);
+            if (inputStream != null) {
                 i = inputStream.read();
+                while (i != -1) {
+                    byteArrayOutputStream.write(i);
+                    i = inputStream.read();
+                }
             }
+
+
             inputStream.close();
         } catch (IOException e) {
             // TODO Auto-generated catch block

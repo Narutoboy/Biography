@@ -8,9 +8,9 @@
 
     </string-array>
     <string-array name="pref_text_size_values">
-        <item>17</item>
-        <item>28</item>
-        <item>42</item>
+        <item>18</item>
+        <item>22</item>
+        <item>30</item>
 
     </string-array>
 </resources>

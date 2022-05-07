@@ -3,7 +3,9 @@ package com.do_big.biography.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Handler;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
@@ -14,6 +16,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class SplashScreen extends AppCompatActivity {
+    public static final int DELAY_MILLIS = 2500;
     SharedPreferences pref = null;
 
     @Override
@@ -24,24 +27,15 @@ public class SplashScreen extends AppCompatActivity {
         Animation moveanimation = AnimationUtils.loadAnimation(SplashScreen.this, R.anim.move_up);
         title.startAnimation(moveanimation);
         pref = getSharedPreferences("com.do_big.biography", MODE_PRIVATE);
-        TimerTask tt = new TimerTask() {
+
+        new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 startActivity(new Intent(SplashScreen.this, ListActivity.class));
                 SplashScreen.this.finish();
             }
-        };
-        Timer t = new Timer();
-        t.schedule(tt, 2500);
+        }, DELAY_MILLIS);
     }
 
-//install database in firstrun
-    /*@Override
-    protected void onResume() {
-        super.onResume();
-        if(pref.getBoolean("firstlunch",true)){
-            //
-            pref.edit().putBoolean("firstlunch",false).commit();
-        }
-    }*/
+
 }

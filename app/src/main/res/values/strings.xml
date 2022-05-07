@@ -113,6 +113,6 @@
     <string name="key_vibrate">key_vibrate</string>
     <string name="key_send_feedback">key_send_feedback</string>
     <string name="title_activity_list">ListActivity</string>
-    <string name="previous"><![CDATA[<<]]></string>
-    <string name="nextbtn"><![CDATA[>>]]></string>
+    <string name="previous"><![CDATA[<< Previous]]></string>
+    <string name="nextbtn"><![CDATA[Next >>]]></string>
 </resources>

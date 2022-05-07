@@ -41,18 +41,14 @@
               android:title="@string/pref_title_ringtone" />
   -->
         <ListPreference
-            android:defaultValue="3"
+            android:defaultValue="18"
             android:dialogTitle="@string/text_size"
             android:entries="@array/pref_text_size_entries"
             android:entryValues="@array/pref_text_size_values"
             android:key="TextSize"
             android:summary="@string/summary_upload_video_quality"
             android:title="@string/text_size" />
-        <!--  <SwitchPreference
-              android:defaultValue="true"
-              android:key="@string/key_vibrate"
-              android:summary="@string/summary_vibrate"
-              android:title="@string/title_vibrate" />-->
+
     </PreferenceCategory>
 
     <PreferenceCategory android:title="@string/pref_header_about">
