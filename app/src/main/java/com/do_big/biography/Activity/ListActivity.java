@@ -23,7 +23,7 @@ public class ListActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list2);
+        setContentView(R.layout.activity_list);
         listview = findViewById(R.id.listView);
         LinkedList<String> items = new LinkedList<String>(Arrays.asList(
 
@@ -57,7 +57,7 @@ public class ListActivity extends AppCompatActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent detailIntent = new Intent(ListActivity.this, DetailAct.class);
+                Intent detailIntent = new Intent(ListActivity.this, DetailActivity.class);
                 int storyNumber = ++i;
                 detailIntent.putExtra("file", "" + storyNumber + ".txt");
                 startActivity(detailIntent);

@@ -1,7 +1,5 @@
 package com.do_big.biography.Activity;
 
-import static android.R.attr.textSize;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.AssetManager;
@@ -21,9 +19,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.do_big.biography.Database.DatabaseHandler;
 import com.do_big.biography.R;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.InterstitialAd;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import java.io.ByteArrayOutputStream;
@@ -31,7 +26,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Locale;
 
-public class DetailAct extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity {
     public static final String PREF_FILE_NAME = "PrefFile";
     private int fileNumber;
     private InputStream in;
@@ -50,7 +45,7 @@ public class DetailAct extends AppCompatActivity {
             switch (item.getItemId()) {
                 case R.id.navigation_setting:
                     // mTextMessage.setText(R.string.title_setting);
-                    Intent settingIntent = new Intent(DetailAct.this, Settings.class);
+                    Intent settingIntent = new Intent(DetailActivity.this, Settings.class);
                     startActivity(settingIntent);
 
                     return true;
