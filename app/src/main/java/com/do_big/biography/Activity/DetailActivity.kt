@@ -1,207 +1,173 @@
-package com.do_big.biography.Activity;
+package com.do_big.biography.Activity
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.res.AssetManager;
-import android.graphics.Color;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.speech.tts.TextToSpeech;
-import android.text.method.ScrollingMovementMethod;
-import android.util.Log;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.content.Intent
+import android.graphics.Color
+import android.os.Bundle
+import android.preference.PreferenceManager
+import android.speech.tts.TextToSpeech
+import android.text.method.ScrollingMovementMethod
+import android.util.Log
+import android.view.View
+import android.widget.LinearLayout
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import com.do_big.biography.R
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import java.io.ByteArrayOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.util.*
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
-import com.do_big.biography.Database.DatabaseHandler;
-import com.do_big.biography.R;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Locale;
-
-public class DetailActivity extends AppCompatActivity {
-    public static final String PREF_FILE_NAME = "PrefFile";
-    private int fileNumber;
-    private InputStream in;
-    private LinearLayout layout;
-    private DatabaseHandler db;
-    private String storyId;
-    private TextView mTextMessage;
-    private TextToSpeech tts;
-
-    private int ttsStatus;
-    private final BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_setting:
+class DetailActivity : AppCompatActivity() {
+    private var fileNumber = 0
+    private var `in`: InputStream? = null
+    private var layout: LinearLayout? = null
+    private var storyId: String? = null
+    private var mTextMessage: TextView? = null
+    private var tts: TextToSpeech? = null
+    private var ttsStatus = 0
+    private val mOnNavigationItemSelectedListener =
+        BottomNavigationView.OnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.navigation_setting -> {
                     // mTextMessage.setText(R.string.title_setting);
-                    Intent settingIntent = new Intent(DetailActivity.this, Settings.class);
-                    startActivity(settingIntent);
-
-                    return true;
-                case R.id.navigation_listen:
+                    val settingIntent = Intent(this@DetailActivity, Settings::class.java)
+                    startActivity(settingIntent)
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_listen -> {
                     //mTextMessage.setText(R.string.title_listen);
-                    if(tts.isSpeaking()){
-                        tts.stop();
-
-                    }else
-                    tts.speak(mTextMessage.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
-                    return true;
-                case R.id.navigation_share:
+                    if (tts!!.isSpeaking) {
+                        tts!!.stop()
+                    } else tts!!.speak(
+                        mTextMessage!!.text.toString(),
+                        TextToSpeech.QUEUE_FLUSH,
+                        null
+                    )
+                    return@OnNavigationItemSelectedListener true
+                }
+                R.id.navigation_share -> {
 
                     //mTextMessage.setText(R.string.title_share);
-                    Intent shareintent = new Intent();
-                    shareintent.setAction(Intent.ACTION_SEND);
-                    shareintent.putExtra(Intent.EXTRA_TEXT,
-                            mTextMessage.getText().toString() + "Short Stories");
-                    shareintent.setType("text/plain");
-                    startActivity(shareintent);
-
-                    return true;
+                    val shareintent = Intent()
+                    shareintent.action = Intent.ACTION_SEND
+                    shareintent.putExtra(
+                        Intent.EXTRA_TEXT,
+                        mTextMessage!!.text.toString() + "Short Stories"
+                    )
+                    shareintent.type = "text/plain"
+                    startActivity(shareintent)
+                    return@OnNavigationItemSelectedListener true
+                }
             }
-            return false;
+            false
         }
 
-    };
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail);
-        layout = findViewById(R.id.content);
-        String key = getIntent().getStringExtra("file");
-        tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
-
-            @Override
-            public void onInit(int status) {
-                ttsStatus = status;
-                tts.setLanguage(Locale.UK);
-
-            }
-        });
-
-        mTextMessage = findViewById(R.id.message);
-        mTextMessage.setMovementMethod(new ScrollingMovementMethod());
-        BottomNavigationView navigation = findViewById(R.id.navigation);
-        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        storyId = key;
-        AssetManager assetManager = getAssets();
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_detail)
+        layout = findViewById(R.id.content)
+        val key = intent.getStringExtra("file")
+        tts = TextToSpeech(applicationContext) { status ->
+            ttsStatus = status
+            tts!!.language = Locale.UK
+        }
+        mTextMessage = findViewById(R.id.message)
+        mTextMessage?.movementMethod = ScrollingMovementMethod()
+        val navigation = findViewById<BottomNavigationView>(R.id.navigation)
+        navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
+        storyId = key
+        val assetManager = assets
         try {
-            in = assetManager.open(storyId);
-        } catch (IOException e) {
-            e.printStackTrace();
+            `in` = assetManager.open(storyId!!)
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
-
-        mTextMessage.setText(readTxt(in));
-        fileNumber = Integer.parseInt(storyId.substring(0, storyId.indexOf(".")));
-
+        mTextMessage?.text = readTxt(`in`)
+        fileNumber = storyId!!.substring(0, storyId!!.indexOf(".")).toInt()
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-        tts.stop();
+    override fun onBackPressed() {
+        super.onBackPressed()
+        tts!!.stop()
     }
 
-    @Override
-    protected void onResume() {
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        String textsize = settings.getString("TextSize", "18");
-        mTextMessage.setTextSize(Float.parseFloat(textsize));
-        boolean nightmode = settings.getBoolean("nightMode", false);
+    override fun onResume() {
+        val settings = PreferenceManager.getDefaultSharedPreferences(this)
+        val textsize = settings.getString("TextSize", "18")
+        mTextMessage!!.textSize = textsize!!.toFloat()
+        val nightmode = settings.getBoolean("nightMode", false)
         if (nightmode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-            mTextMessage.setTextColor(Color.BLACK);
-            layout.setBackgroundResource(R.drawable.back2);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            mTextMessage!!.setTextColor(Color.BLACK)
+            layout!!.setBackgroundResource(R.drawable.back2)
         }
-
-        super.onResume();
+        super.onResume()
     }
 
-    @Override
-    protected void onStop() {
-        super.onStop();
-        tts.stop();
+    override fun onStop() {
+        super.onStop()
+        tts!!.stop()
     }
 
-    public void btnclick(View view) {
-        int Id = view.getId();
-        switch (Id) {
-            case R.id.btn_next:
-
-                Log.d("Btn", "next pressed" + fileNumber);
+    fun btnclick(view: View) {
+        val _id = view.id
+        when (_id) {
+            R.id.btn_next -> {
+                Log.d("Btn", "next pressed$fileNumber")
                 if (fileNumber < 25) {
-                    ++fileNumber;
-                    String nextstory = fileNumber + ".txt";
-                    Log.d("nextstory", nextstory);
-                    AssetManager assetManager = getAssets();
+                    ++fileNumber
+                    val nextstory = "$fileNumber.txt"
+                    Log.d("nextstory", nextstory)
+                    val assetManager = assets
                     try {
-                        in = assetManager.open(nextstory);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        `in` = assetManager.open(nextstory)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
                     }
-
-                    mTextMessage.setText(readTxt(in));
-
-
+                    mTextMessage!!.text = readTxt(`in`)
                 }
-                break;
-            case R.id.btn_previous:
+            }
+            R.id.btn_previous -> {
                 if (fileNumber > 1) {
-                    --fileNumber;
-                    String previousstory = fileNumber + ".txt";
-                    Log.d("previous story", previousstory);
-                    AssetManager assetManager = getAssets();
+                    --fileNumber
+                    val previousstory = "$fileNumber.txt"
+                    Log.d("previous story", previousstory)
+                    val assetManager = assets
                     try {
-                        in = assetManager.open(previousstory);
-                    } catch (IOException e) {
-                        e.printStackTrace();
+                        `in` = assetManager.open(previousstory)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
                     }
-
-                    mTextMessage.setText(readTxt(in));
-
-
+                    mTextMessage!!.text = readTxt(`in`)
                 }
-
-                Log.d("Btn", "previous  pressed");
-                break;
+                Log.d("Btn", "previous  pressed")
+            }
         }
     }
 
-    private CharSequence readTxt(InputStream inputStream) {
-
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-
-        int i;
+    private fun readTxt(inputStream: InputStream?): CharSequence {
+        val byteArrayOutputStream = ByteArrayOutputStream()
+        var i: Int
         try {
             if (inputStream != null) {
-                i = inputStream.read();
+                i = inputStream.read()
                 while (i != -1) {
-                    byteArrayOutputStream.write(i);
-                    i = inputStream.read();
+                    byteArrayOutputStream.write(i)
+                    i = inputStream.read()
                 }
             }
-
-
-            inputStream.close();
-        } catch (IOException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
+            inputStream!!.close()
+        } catch (e: IOException) {
+            e.printStackTrace()
         }
+        return byteArrayOutputStream.toString()
+    }
 
-        return byteArrayOutputStream.toString();
+    companion object {
+        const val PREF_FILE_NAME = "PrefFile"
     }
 }

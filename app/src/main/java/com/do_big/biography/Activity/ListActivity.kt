@@ -1,37 +1,31 @@
-package com.do_big.biography.Activity;
+package com.do_big.biography.Activity
 
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.net.Uri;
-import android.os.Bundle;
-import android.preference.PreferenceManager;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
+import androidx.appcompat.app.AppCompatActivity
+import android.os.Bundle
+import com.do_big.biography.R
+import com.do_big.biography.adapter.MyAdapter
+import android.widget.AdapterView.OnItemClickListener
+import android.widget.AdapterView
+import android.content.Intent
+import com.do_big.biography.Activity.DetailActivity
+import android.content.SharedPreferences
+import android.net.Uri
+import android.preference.PreferenceManager
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.ListView
+import androidx.appcompat.app.AppCompatDelegate
+import java.util.*
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
-
-import com.do_big.biography.R;
-import com.do_big.biography.adapter.MyAdapter;
-
-import java.util.Arrays;
-import java.util.LinkedList;
-
-public class ListActivity extends AppCompatActivity {
-    ListView listview;
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_list);
-        listview = findViewById(R.id.listView);
+class ListActivity : AppCompatActivity() {
+    var listview: ListView? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_list)
+        listview = findViewById(R.id.listView)
         //AppCompatDelegate.getDefaultNightMode();
-        LinkedList<String> items = new LinkedList<String>(Arrays.asList(
-
+        val items = LinkedList(
+            Arrays.asList(
                 "1 Shake off Your Problems",
                 "2 The Elephant Rope",
                 "3 Potatoes, Eggs, and Coffee Beans",
@@ -56,60 +50,59 @@ public class ListActivity extends AppCompatActivity {
                 "22 Wealth without a Value",
                 "23 The Reflection of Your Actions",
                 "24 Think Before You Judge",
-                "25 Smartest Man in the World"));
-        MyAdapter adapter = new MyAdapter(ListActivity.this, R.layout.row, R.id.rowText, items);
-        listview.setAdapter(adapter);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent detailIntent = new Intent(ListActivity.this, DetailActivity.class);
-                int storyNumber = ++i;
-                detailIntent.putExtra("file", "" + storyNumber + ".txt");
-                startActivity(detailIntent);
-            }
-        });
+                "25 Smartest Man in the World"
+            )
+        )
+        val adapter = MyAdapter(this@ListActivity, R.layout.row, R.id.rowText, items)
+        listview?.setAdapter(adapter)
+        listview?.setOnItemClickListener(OnItemClickListener { adapterView, view, i, l ->
+            var i = i
+            val detailIntent = Intent(this@ListActivity, DetailActivity::class.java)
+            val storyNumber = ++i
+            detailIntent.putExtra("file", "$storyNumber.txt")
+            startActivity(detailIntent)
+        })
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    override fun onCreateOptionsMenu(menu: Menu): Boolean {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
+        menuInflater.inflate(R.menu.menu_main, menu)
+        return true
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
-        boolean nightmode = settings.getBoolean("nightMode", false);
+    override fun onResume() {
+        super.onResume()
+        val settings = PreferenceManager.getDefaultSharedPreferences(this)
+        val nightmode = settings.getBoolean("nightMode", false)
         if (nightmode) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
         }
     }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        int id = item.getItemId();
-
-
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val id = item.itemId
         if (id == R.id.rate_us) {
-            startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.do_big.biography")));
-            return true;
+            startActivity(
+                Intent(
+                    Intent.ACTION_VIEW,
+                    Uri.parse("https://play.google.com/store/apps/details?id=com.do_big.biography")
+                )
+            )
+            return true
         }
         if (id == R.id.share) {
-
-            Intent sendIntent = new Intent();
-            sendIntent.setAction(Intent.ACTION_SEND);
-            sendIntent.putExtra(Intent.EXTRA_TEXT,
-                    "Short Story :) https://play.google.com/store/apps/details?id=com.do_big.biography");
-            sendIntent.setType("text/plain");
-            startActivity(sendIntent);
-            return true;
+            val sendIntent = Intent()
+            sendIntent.action = Intent.ACTION_SEND
+            sendIntent.putExtra(
+                Intent.EXTRA_TEXT,
+                "Short Story :) https://play.google.com/store/apps/details?id=com.do_big.biography"
+            )
+            sendIntent.type = "text/plain"
+            startActivity(sendIntent)
+            return true
         }
-        return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item)
     }
-
-
 }

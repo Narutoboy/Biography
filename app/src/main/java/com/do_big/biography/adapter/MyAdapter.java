@@ -33,7 +33,6 @@ public class MyAdapter extends ArrayAdapter<String> {
         LayoutInflater inf = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inf.inflate(R.layout.row, null);
         TextView tv = row.findViewById(R.id.rowText);
-        //StoryList sl=storylist.get(i);
         tv.setText(storylist.get(i));//sl.storyName
         ImageView iv = row.findViewById(R.id.logo);
         iv.setImageResource(R.drawable.icon);
