@@ -8,7 +8,7 @@
 
     <item
         android:id="@+id/navigation_listen"
-        android:icon="@drawable/ic_volume_up_black_24dp"
+        android:icon="@drawable/bottom_nav_listen_selector"
         android:title="@string/title_listen" />
 
     <item

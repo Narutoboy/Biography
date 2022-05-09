@@ -8,17 +8,17 @@
     android:orientation="vertical"
     tools:context="com.do_big.biography.Activity.DetailActivity">
 
-    <!-- <View
+     <View
          android:layout_width="match_parent"
          android:layout_height="1dp"
          android:alpha=".5"
          android:background="@android:color/black" />
- -->
 
-    <FrameLayout
+    <LinearLayout
         android:id="@+id/content"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:orientation="vertical"
         android:layout_weight="0.97">
 
         <LinearLayout
@@ -26,47 +26,45 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/dots_margin_bottom"
-            android:layout_weight="0"
-            android:background="@android:color/transparent"
             android:orientation="horizontal">
 
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_previous"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="?android:selectableItemBackground"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:background="@android:color/transparent"
                 android:drawableLeft="@android:drawable/ic_media_previous"
                 android:onClick="btnclick"
                 android:text="@string/previous"
-                android:textColor="@android:color/black" />
+                />
 
-            <Button
+            <com.google.android.material.button.MaterialButton
                 android:id="@+id/btn_next"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:background="?android:selectableItemBackground"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:background="@android:color/transparent"
                 android:drawableRight="@android:drawable/ic_media_next"
                 android:onClick="btnclick"
                 android:text="@string/nextbtn"
-                android:textColor="@android:color/black" />
+                 />
         </LinearLayout>
 
         <TextView
             android:id="@+id/message"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_vertical_margin"
             android:layout_marginBottom="@dimen/activity_vertical_margin"
             android:fontFamily="@font/almendra"
             android:text="@string/title_setting"
             android:textAlignment="viewStart"
             android:textSize="18sp" />
 
-    </FrameLayout>
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/navigation"

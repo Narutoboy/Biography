@@ -15,8 +15,7 @@
         <item name="windowNoTitle">true</item>
     </style>
     <style name="PreferenceScreen" parent="AppTheme">
-        <item name="android:textColor">@color/grey</item>
-        <item name="android:subtitleTextColor">@color/grey</item>
+        <item name="android:textColor">@color/colorAccent</item>
     </style>
 
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar" />

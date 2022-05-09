@@ -1,8 +1,11 @@
 package com.do_big.biography.Activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -10,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.do_big.biography.R;
 import com.do_big.biography.adapter.MyAdapter;
@@ -25,6 +29,7 @@ public class ListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
         listview = findViewById(R.id.listView);
+        //AppCompatDelegate.getDefaultNightMode();
         LinkedList<String> items = new LinkedList<String>(Arrays.asList(
 
                 "1 Shake off Your Problems",
@@ -70,6 +75,18 @@ public class ListActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean nightmode = settings.getBoolean("nightMode", false);
+        if (nightmode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     @Override

@@ -2,6 +2,7 @@ package com.do_big.biography.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -19,7 +20,11 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
 
+import androidx.appcompat.app.AppCompatDelegate;
+
 import com.do_big.biography.R;
+
+import java.security.AccessController;
 
 
 public class Settings extends AppCompatPreferenceActivity {
@@ -102,6 +107,18 @@ public class Settings extends AppCompatPreferenceActivity {
         intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback of android app");
         intent.putExtra(Intent.EXTRA_TEXT, body);
         context.startActivity(Intent.createChooser(intent, context.getString(R.string.choose_email_client)));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SharedPreferences settings = PreferenceManager.getDefaultSharedPreferences(this);
+        boolean nightmode = settings.getBoolean("nightMode", false);
+        if (nightmode) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+        }
     }
 
     @Override

@@ -11,11 +11,12 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.do_big.biography.Database.DatabaseHandler;
 import com.do_big.biography.R;
@@ -30,7 +31,7 @@ public class DetailActivity extends AppCompatActivity {
     public static final String PREF_FILE_NAME = "PrefFile";
     private int fileNumber;
     private InputStream in;
-    private FrameLayout frameLayout;
+    private LinearLayout layout;
     private DatabaseHandler db;
     private String storyId;
     private TextView mTextMessage;
@@ -51,7 +52,10 @@ public class DetailActivity extends AppCompatActivity {
                     return true;
                 case R.id.navigation_listen:
                     //mTextMessage.setText(R.string.title_listen);
+                    if(tts.isSpeaking()){
+                        tts.stop();
 
+                    }else
                     tts.speak(mTextMessage.getText().toString(), TextToSpeech.QUEUE_FLUSH, null);
                     return true;
                 case R.id.navigation_share:
@@ -75,7 +79,7 @@ public class DetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
-        frameLayout = findViewById(R.id.content);
+        layout = findViewById(R.id.content);
         String key = getIntent().getStringExtra("file");
         tts = new TextToSpeech(getApplicationContext(), new TextToSpeech.OnInitListener() {
 
@@ -117,13 +121,11 @@ public class DetailActivity extends AppCompatActivity {
         mTextMessage.setTextSize(Float.parseFloat(textsize));
         boolean nightmode = settings.getBoolean("nightMode", false);
         if (nightmode) {
-            mTextMessage.setTextColor(Color.WHITE);
-            frameLayout.setBackgroundResource(R.color.grey);
-
-            // mTextMessage.append("true");
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES);
         } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
             mTextMessage.setTextColor(Color.BLACK);
-            frameLayout.setBackgroundResource(R.drawable.back2);
+            layout.setBackgroundResource(R.drawable.back2);
         }
 
         super.onResume();
