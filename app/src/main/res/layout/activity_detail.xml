@@ -37,7 +37,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:background="@android:color/transparent"
                 android:drawableLeft="@android:drawable/ic_media_previous"
-                android:onClick="btnclick"
+                android:onClick="buttonClick"
                 android:text="@string/previous"
                 />
 
@@ -49,7 +49,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:background="@android:color/transparent"
                 android:drawableRight="@android:drawable/ic_media_next"
-                android:onClick="btnclick"
+                android:onClick="buttonClick"
                 android:text="@string/nextbtn"
                  />
         </LinearLayout>

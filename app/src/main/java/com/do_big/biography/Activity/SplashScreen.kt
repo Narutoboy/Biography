@@ -1,23 +1,22 @@
 package com.do_big.biography.Activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import com.do_big.biography.R
-import android.widget.TextView
-import android.view.animation.Animation
-import android.content.Intent
 import android.os.Handler
 import android.view.animation.AnimationUtils
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
+import com.do_big.biography.R
 
 class SplashScreen : AppCompatActivity() {
-    var pref: SharedPreferences? = null
+    private var pref: SharedPreferences? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash_screen)
         val title = findViewById<TextView>(R.id.appTitle)
-        val moveanimation = AnimationUtils.loadAnimation(this@SplashScreen, R.anim.move_up)
-        title.startAnimation(moveanimation)
+        val moveAnimation = AnimationUtils.loadAnimation(this@SplashScreen, R.anim.move_up)
+        title.startAnimation(moveAnimation)
         pref = getSharedPreferences("com.do_big.biography", MODE_PRIVATE)
         Handler().postDelayed({
             startActivity(Intent(this@SplashScreen, ListActivity::class.java))

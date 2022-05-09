@@ -50,14 +50,14 @@ class DetailActivity : AppCompatActivity() {
                 R.id.navigation_share -> {
 
                     //mTextMessage.setText(R.string.title_share);
-                    val shareintent = Intent()
-                    shareintent.action = Intent.ACTION_SEND
-                    shareintent.putExtra(
+                    val shareIntent = Intent()
+                    shareIntent.action = Intent.ACTION_SEND
+                    shareIntent.putExtra(
                         Intent.EXTRA_TEXT,
                         mTextMessage!!.text.toString() + "Short Stories"
                     )
-                    shareintent.type = "text/plain"
-                    startActivity(shareintent)
+                    shareIntent.type = "text/plain"
+                    startActivity(shareIntent)
                     return@OnNavigationItemSelectedListener true
                 }
             }
@@ -95,10 +95,10 @@ class DetailActivity : AppCompatActivity() {
 
     override fun onResume() {
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
-        val textsize = settings.getString("TextSize", "18")
-        mTextMessage!!.textSize = textsize!!.toFloat()
-        val nightmode = settings.getBoolean("nightMode", false)
-        if (nightmode) {
+        val textSize = settings.getString("TextSize", "18")
+        mTextMessage!!.textSize = textSize!!.toFloat()
+        val nightMode = settings.getBoolean("nightMode", false)
+        if (nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
@@ -113,18 +113,18 @@ class DetailActivity : AppCompatActivity() {
         tts!!.stop()
     }
 
-    fun btnclick(view: View) {
+    fun buttonClick(view: View) {
         val _id = view.id
         when (_id) {
             R.id.btn_next -> {
                 Log.d("Btn", "next pressed$fileNumber")
                 if (fileNumber < 25) {
                     ++fileNumber
-                    val nextstory = "$fileNumber.txt"
-                    Log.d("nextstory", nextstory)
+                    val nextStory = "$fileNumber.txt"
+                    Log.d("nextstory", nextStory)
                     val assetManager = assets
                     try {
-                        `in` = assetManager.open(nextstory)
+                        `in` = assetManager.open(nextStory)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
@@ -134,11 +134,11 @@ class DetailActivity : AppCompatActivity() {
             R.id.btn_previous -> {
                 if (fileNumber > 1) {
                     --fileNumber
-                    val previousstory = "$fileNumber.txt"
-                    Log.d("previous story", previousstory)
+                    val previousStory = "$fileNumber.txt"
+                    Log.d("previous story", previousStory)
                     val assetManager = assets
                     try {
-                        `in` = assetManager.open(previousstory)
+                        `in` = assetManager.open(previousStory)
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
@@ -167,7 +167,4 @@ class DetailActivity : AppCompatActivity() {
         return byteArrayOutputStream.toString()
     }
 
-    companion object {
-        const val PREF_FILE_NAME = "PrefFile"
-    }
 }

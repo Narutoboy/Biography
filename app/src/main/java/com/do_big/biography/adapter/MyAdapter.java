@@ -19,12 +19,12 @@ import java.util.List;
 
 public class MyAdapter extends ArrayAdapter<String> {
     Context ctx;
-    List<String> storylist;
+    List<String> storyList;
 
     public MyAdapter(Context context, int row, int textView, LinkedList<String> list) {
         super(context, row, textView, list);
         ctx = context;
-        storylist = list;
+        storyList = list;
 
     }
 
@@ -33,7 +33,7 @@ public class MyAdapter extends ArrayAdapter<String> {
         LayoutInflater inf = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View row = inf.inflate(R.layout.row, null);
         TextView tv = row.findViewById(R.id.rowText);
-        tv.setText(storylist.get(i));//sl.storyName
+        tv.setText(storyList.get(i));//sl.storyName
         ImageView iv = row.findViewById(R.id.logo);
         iv.setImageResource(R.drawable.icon);
         return row;

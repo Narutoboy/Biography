@@ -1,24 +1,21 @@
 package com.do_big.biography.Activity
 
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import com.do_big.biography.R
-import com.do_big.biography.adapter.MyAdapter
-import android.widget.AdapterView.OnItemClickListener
-import android.widget.AdapterView
 import android.content.Intent
-import com.do_big.biography.Activity.DetailActivity
-import android.content.SharedPreferences
 import android.net.Uri
+import android.os.Bundle
 import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.AdapterView.OnItemClickListener
 import android.widget.ListView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import com.do_big.biography.R
+import com.do_big.biography.adapter.MyAdapter
 import java.util.*
 
 class ListActivity : AppCompatActivity() {
-    var listview: ListView? = null
+    private var listview: ListView? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_list)
@@ -54,14 +51,14 @@ class ListActivity : AppCompatActivity() {
             )
         )
         val adapter = MyAdapter(this@ListActivity, R.layout.row, R.id.rowText, items)
-        listview?.setAdapter(adapter)
-        listview?.setOnItemClickListener(OnItemClickListener { adapterView, view, i, l ->
+        listview?.adapter = adapter
+        listview?.onItemClickListener = OnItemClickListener { adapterView, view, i, l ->
             var i = i
             val detailIntent = Intent(this@ListActivity, DetailActivity::class.java)
             val storyNumber = ++i
             detailIntent.putExtra("file", "$storyNumber.txt")
             startActivity(detailIntent)
-        })
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -73,8 +70,8 @@ class ListActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         val settings = PreferenceManager.getDefaultSharedPreferences(this)
-        val nightmode = settings.getBoolean("nightMode", false)
-        if (nightmode) {
+        val nightMode = settings.getBoolean("nightMode", false)
+        if (nightMode) {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
         } else {
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
