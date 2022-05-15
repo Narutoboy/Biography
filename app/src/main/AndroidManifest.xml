@@ -19,10 +19,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Activity.DetailAct"
+            android:name=".Activity.DetailActivity"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".Activity.Settings" />
+        <activity android:name=".Activity.Settings"
+            android:theme="@style/PreferenceScreen"/>
 
         <meta-data
             android:name="preloaded_fonts"
