@@ -1,29 +1,254 @@
 {
-  "names": [
-    "1 Shake off Your Problems",
-    "2 The Elephant Rope",
-    "3 Potatoes, Eggs, and Coffee Beans",
-    "4 A Dish of Ice Cream",
-    "5 Colonel Sanders | Kentucky Fried Chicken(KFC)",
-    "6 The Obstacle in our Path",
-    "7 Value",
-    "8 A Very Special Bank Account",
-    "9  Story of  the Butterfly",
-    "10 Stories about goal setting",
-    "11 The important things in life",
-    "12 The Group of Frogs (Encouragement)",
-    "13 A Pound of Butter (Honesty)",
-    "14 The Obstacle In Our Path (Opportunity)",
-    "15 The Butterfly (Struggles)",
-    "16 Control Your Temper (Anger)",
-    "17 The Blind Girl (Change)",
-    "18 Puppies for Sale (Understanding)",
-    "19 Box Full of Kisses (Love)",
-    "20 One who read the future",
-    "21 Choose Your Words Wisely",
-    "22 Wealth without a Value",
-    "23 The Reflection of Your Actions",
-    "24 Think Before You Judge",
-    "25 Smartest Man in the World"
-  ]
-}
+  "stories":
+[
+  {
+    "uid": 1,
+    "type": 3,
+    "title":  "1 Shake off Your Problems",
+    "description": "As a user, I can do something awesome",
+    "moral": "The evil doer often comes to harm through his own deceit.",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 2,
+    "type": 3,
+    "title": "2 The Elephant Rope",
+    "description": "As a user, I can do something awesome",
+    "moral": "The evil doer often comes to harm through his own deceit.",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 3,
+    "type": 3,
+    "title": "3 Potatoes, Eggs, and Coffee Beans",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 4,
+    "type": 3,
+    "title": "4 A Dish of Ice Cream",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 5,
+    "type": 3,
+    "title": "5 Colonel Sanders | Kentucky Fried Chicken(KFC)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 6,
+    "type": 3,
+    "title": "6 The Obstacle in our Path",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 7,
+    "type": 3,
+    "title": "7 Value",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 8,
+    "type": 3,
+    "title": "8 A Very Special Bank Account",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 9,
+    "type": 3,
+    "title": "9  Story of  the Butterfly",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 10,
+    "type": 3,
+    "title": "10 Stories about goal setting",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 11,
+    "type": 3,
+    "title": "11 The important things in life",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 12,
+    "type": 3,
+    "title": "12 The Group of Frogs (Encouragement)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 13,
+    "type": 3,
+    "title": "13 A Pound of Butter (Honesty)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 14,
+    "type": 3,
+    "title": "14 The Obstacle In Our Path (Opportunity)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 15,
+    "type": 3,
+    "title": "15 The Butterfly (Struggles)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 16,
+    "type": 3,
+    "title": "16 Control Your Temper (Anger)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 17,
+    "type": 3,
+    "title": "17 The Blind Girl (Change)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 18,
+    "type": 3,
+    "title": "18 Puppies for Sale (Understanding)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 19,
+    "type": 3,
+    "title": "19 Box Full of Kisses (Love)",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 20,
+    "type": 3,
+    "title": "20 One who read the future",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid": 21,
+    "type": 3,
+    "title": "21 Choose Your Words Wisely",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid":22,
+    "type": 3,
+    "title": "22 Wealth without a Value",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid":23,
+    "type": 3,
+    "title": "23 The Reflection of Your Actions",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid":24,
+    "type": 3,
+    "title": "24 Think Before You Judge",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  },
+  {
+    "uid":25,
+    "type": 3,
+    "title": "25 Smartest Man in the World",
+    "description": "",
+    "moral": "",
+    "imgUrl": "",
+    "rating": 0,
+    "tags": []
+  }
+]}

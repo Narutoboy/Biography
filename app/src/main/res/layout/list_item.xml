@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/listItemRowContainer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:paddingStart="16dp"
+    android:paddingTop="16dp"
+    android:paddingBottom="16dp">
+
+    <ImageView
+        android:id="@+id/rowIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingEnd="12dp"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        android:src="@android:drawable/ic_input_add"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="title"
+        android:textAlignment="viewStart"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/detail"
+        app:layout_constraintEnd_toStartOf="@+id/notificationBadgeHolder"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/rowIcon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/detail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="details"
+        android:textAlignment="viewStart"
+        android:visibility="visible"
+        app:layout_constraintBottom_toTopOf="@+id/additionalDetail"
+        app:layout_constraintEnd_toStartOf="@id/notificationBadgeHolder"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/rowIcon"
+        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintVertical_chainStyle="packed"
+        tools:visibility="visible" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/additionalDetail"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="additionalDetails"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/notificationBadgeHolder"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/rowIcon"
+        app:layout_constraintTop_toBottomOf="@id/detail"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <FrameLayout
+        android:id="@+id/notificationBadgeHolder"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/barrier"
+        app:layout_constraintTop_toTopOf="parent" />
+    <!--barrier-->
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="start"
+        app:constraint_referenced_ids="trailingDetailView,confirmationIcon"/>
+
+    <androidx.appcompat.widget.AppCompatTextView
+        android:id="@+id/trailingDetailView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ellipsize="end"
+        android:maxWidth="188dp"
+        android:maxLines="3"
+        android:paddingStart="28dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/confirmationIcon"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toEndOf="@+id/barrier"
+        app:layout_constraintTop_toTopOf="parent"
+        android:paddingEnd="0dp"
+        android:text="Trailing details"
+        android:textAlignment="viewEnd" />
+
+    <ImageView
+        android:id="@+id/confirmationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:src="@android:drawable/arrow_up_float"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
