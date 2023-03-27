@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 1. Added Mock Response for Offline Mode
-
+2. Added Library Retrofit, Dagger, Http Interceptor 
 
 ## [1.0.2] - 2022-05-22
 ### Added
