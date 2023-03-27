@@ -13,6 +13,8 @@ import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.do_big.biography.R
+import com.do_big.biography.Stories
+import com.do_big.biography.Story
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import java.io.ByteArrayOutputStream
 import java.io.IOException
@@ -68,7 +70,7 @@ class DetailActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detail)
         layout = findViewById(R.id.content)
-        val key = intent.getStringExtra("file")
+        val key = intent.getParcelableExtra<Story>("file")
         tts = TextToSpeech(applicationContext) { status ->
             ttsStatus = status
             tts!!.language = Locale.UK
@@ -77,15 +79,15 @@ class DetailActivity : AppCompatActivity() {
         mTextMessage?.movementMethod = ScrollingMovementMethod()
         val navigation = findViewById<BottomNavigationView>(R.id.navigation)
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener)
-        storyId = key
+       /* storyId = "1"
         val assetManager = assets
         try {
             `in` = assetManager.open(storyId!!)
         } catch (e: IOException) {
             e.printStackTrace()
-        }
-        mTextMessage?.text = readTxt(`in`)
-        fileNumber = storyId!!.substring(0, storyId!!.indexOf(".")).toInt()
+        }*/
+        mTextMessage?.text = intent.getParcelableExtra<Story>("file")?.title
+       // fileNumber = storyId!!.substring(0, storyId!!.indexOf(".")).toInt()
     }
 
     override fun onBackPressed() {
