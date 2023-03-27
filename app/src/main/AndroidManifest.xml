@@ -11,6 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:exported="true"
             android:name=".Activity.SplashScreen"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -21,9 +22,11 @@
         </activity>
         <activity
             android:name=".Activity.DetailActivity"
+            android:exported="false"
             android:label="@string/title_activity_detail"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".Activity.Settings"
+            android:exported="false"
             android:theme="@style/PreferenceScreen"/>
 
         <meta-data
@@ -31,6 +34,7 @@
             android:resource="@array/preloaded_fonts" />
 
         <activity
+            android:exported="false"
             android:name=".Activity.ListActivity"
             android:theme="@style/AppTheme" />
     </application>
