@@ -4,6 +4,7 @@ apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 
 android {
+    namespace "com.do_big.biography"
     compileSdkVersion 31
     defaultConfig {
         applicationId "com.do_big.biography"
