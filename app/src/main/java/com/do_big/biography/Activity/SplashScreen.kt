@@ -4,6 +4,7 @@ import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.animation.AnimationUtils
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
@@ -18,7 +19,7 @@ class SplashScreen : AppCompatActivity() {
         val moveAnimation = AnimationUtils.loadAnimation(this@SplashScreen, R.anim.move_up)
         title.startAnimation(moveAnimation)
         pref = getSharedPreferences("com.do_big.biography", MODE_PRIVATE)
-        Handler().postDelayed({
+        Handler(Looper.getMainLooper()).postDelayed({
             startActivity(Intent(this@SplashScreen, ListActivity::class.java))
             finish()
         }, DELAY_MILLIS.toLong())
