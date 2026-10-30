@@ -5,13 +5,13 @@ apply plugin: 'kotlin-kapt'
 
 android {
     namespace "com.do_big.biography"
-    compileSdkVersion 34
+    compileSdkVersion 37
     defaultConfig {
         applicationId "com.do_big.biography"
         minSdkVersion 26
-        versionCode 4
-        targetSdkVersion 34
-        versionName "1.0.2"
+        versionCode 5
+        targetSdkVersion 37
+        versionName "1.0.3"
 
     }
 
